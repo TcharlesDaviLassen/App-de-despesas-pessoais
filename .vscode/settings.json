@@ -1,0 +1,14 @@
+//Configuração para mudar as espesificações da barra
+
+{
+  "workbench.colorCustomizations": {
+    //"statusBar.background" : "#5a04fb",
+    "statusBar.background": "#fb3504",
+    //         "statusBar.noFolderBackground" : "#212121",
+    //         "statusBar.debuggingBackground": "#263238",    
+  },
+  "editor.tokenColorCustomizations": {
+    "comments": "#fb3504",
+  },
+}
+
