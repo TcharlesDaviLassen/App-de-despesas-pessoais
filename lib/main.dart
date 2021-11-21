@@ -1,7 +1,6 @@
-import 'package:Programa/components/transaction_form.dart';
-import 'package:Programa/components/transaction_list.dart';
-import 'package:Programa/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'components/transaction_user.dart';
+
 
 
 void main() {
@@ -11,28 +10,13 @@ void main() {
 class ProgramaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    return MaterialApp(home: MyHomePage()
+    );
   }
 }
 
 class MyHomePage extends StatelessWidget {
   
-  final _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
-      date: DateTime.now()
-    ),
-    
-    Transaction(
-      id: 't2', 
-      title: 'Conta de Luz', 
-      value: 211.30, 
-      date: DateTime.now()
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
@@ -53,8 +37,8 @@ class MyHomePage extends StatelessWidget {
             ),
           ),
          // Aqui nesses dois Transactions forma divididos em duas class para tornar a arvore de componenete menor 
-         TransactionList(_transactions),
-         TransactionForm(),
+         // E depois em outra 
+         TransactionUser(),
         ],
       ),
     );

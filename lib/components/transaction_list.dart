@@ -40,7 +40,7 @@ class TransactionList extends StatelessWidget {
                     //
                     tr.title,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ), //
+                  ), // 
 
                   // Esse parametro chama e compõe a DATA
                   Text(
