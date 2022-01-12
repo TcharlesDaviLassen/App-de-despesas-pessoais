@@ -3,12 +3,13 @@
 {
   "workbench.colorCustomizations": {
     //"statusBar.background" : "#5a04fb",
-    "statusBar.background": "#fb3504",
+    "statusBar.background": "#8404fb",
     //         "statusBar.noFolderBackground" : "#212121",
     //         "statusBar.debuggingBackground": "#263238",    
   },
   "editor.tokenColorCustomizations": {
-    "comments": "#fb3504",
+    // "comments": "#fb3504",
+    
   },
 }
 

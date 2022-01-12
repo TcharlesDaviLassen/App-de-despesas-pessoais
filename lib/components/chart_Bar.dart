@@ -18,9 +18,9 @@ class ChartBar extends StatelessWidget {
     return Column(
       children: <Widget>[ //children você utiliza quando quer utilizar uma LISTA de widgets. //Por exemplo, dentro de uma Column você colocaria vários textos children:[ Text('primeiro child') , Text('segundo child'), Text('ultimo child')] Neste caso, quando você passa o children:[ ] você informa para o seu compilador que o tipo de entrava vai ser uma lista de widgets (vários filhos).
         
-        //Responsavel por adaptar e alinhar o texto dentro do tamanho proposto na caixa do
+        //Responsavel por adaptar e alinhar o texto dentro do tamanho proposto na caixa do 
         Container(
-          height: 20,
+          height: 20, // Dá uma distância entre os elementos  
           child: FittedBox(
             child: Text('R\$${value.toStringAsFixed(2)}'),// Mostra quantas casas são mostrada depois da vírgula FittedBox
           ),
@@ -28,7 +28,7 @@ class ChartBar extends StatelessWidget {
 
         SizedBox(height: 5),
         Container(
-          height: 60,
+          height: 90, // Regula o tamanho das barras 
           width: 10,
           child: Stack(
             alignment: Alignment.bottomCenter,// Faz com que o cursor de preenchimento da Barra inicie de baixo para cima 

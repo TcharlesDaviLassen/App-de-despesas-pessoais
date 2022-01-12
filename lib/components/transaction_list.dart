@@ -4,9 +4,10 @@ import '../models/transaction.dart';
 //import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
-  TransactionList(this.transactions);
-
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
+
+  TransactionList(this.transactions, this.onRemove);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class TransactionList extends StatelessWidget {
       height: 300, //Estipula o tamanho da caixa onde vai a imagem
       child: transactions.isEmpty
           ? Column(
+             
               // Se o guia de transação estiver vazio vai interpreta esse parametro ate os ///
 
               children: <Widget>[
@@ -23,13 +25,13 @@ class TransactionList extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: 20), // Mexe só na imagem ZZZ
 
                 Container(
                   height: 200, // Aumenta a dimensão da imagem em altura
                   child: Image.asset(
                     'assets/images/waiting.png',
-                    fit: BoxFit.cover, // Ajusta ao tamanho da caixa Estipulado
+                    fit: BoxFit.cover, // Ajusta ao tamanho da imagem na caixa em que se enquadra Estipulado
                   ),
                 ),
               ],
@@ -39,7 +41,9 @@ class TransactionList extends StatelessWidget {
 
           // Caso contrário lerá abaixo
           : ListView.builder(
-              // Este construtor é apropriado para visualizações de lista com um grande (ou infinito) número de filhos porque o construtor é chamado apenas para aqueles filhos que estão realmente visíveis.
+              // Este construtor é apropriado para visualizações de lista com um grande (ou infinito) número de filhos
+              // porque o construtor é chamado apenas para aqueles filhos que estão realmente visíveis.
+              
               // Essa função deixa a aplicação mais leve dando uma experiência mais fluida
               itemCount: transactions.length, //=> quantidade de itens na lista
               itemBuilder: (ctx, index) {
@@ -48,8 +52,8 @@ class TransactionList extends StatelessWidget {
 
                 final tr = transactions[index];
 
-                return Card(
-                  elevation: 5,
+                return Card( // Função das barras de informação de gasto
+                  elevation: 10,
                   margin: EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 5,
@@ -76,6 +80,12 @@ class TransactionList extends StatelessWidget {
                     subtitle: Text(
                       DateFormat('d MMM y').format(tr.date),
                     ),
+                    // Icone de deletar
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => onRemove(tr.id),
+                      ),
                   ),
                 );
               },

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 // A qui era uma class  StatelessWidget, porém virou uma class StatefulWidget devido a uma alteração na class MAIN em relação ao => onPressed: () =>  _openTransactionFormModal(context)
 class TransactionForm extends StatefulWidget {
   // Aqui esqueci de adicionar os controller para tittle e value
-  final void Function(String, double) onSubmit;
+  final void Function(String, double, DateTime) onSubmit;
 
   TransactionForm(this.onSubmit);
 
@@ -15,19 +15,19 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
-  DateTime _selectedDate;
+  DateTime _selectedDate = DateTime.now();
 
   _submitForm() {
     // =>
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0.0;// ?? - operador se nulo, tryParse são usados para converter uma representação de string de um número em um inteiro. 
 
-    if (title.isEmpty || value <= 0) {
+    if (title.isEmpty || value <= 0 || _selectedDate == null) {
       // se esses dados estiverem corretos chama a função
-      return null; // caso contrario sai da função
+      return; // caso contrario sai da função
     }
     
-    widget.onSubmit(title, value);
+    widget.onSubmit(title, value, _selectedDate);
   }
 
   _showDatePicker() {
@@ -41,7 +41,10 @@ class _TransactionFormState extends State<TransactionForm> {
         return;
       }
 
-      _selectedDate = pickedDate;
+      // Aqui para aparecer os dados da data no logar de , Nenhuma data selecionada,  deve se setar o estado para aparecer na aba flutuante
+      setState(() {
+      _selectedDate = pickedDate;        
+      });
 
     });
 
@@ -84,8 +87,13 @@ class _TransactionFormState extends State<TransactionForm> {
                   height: 70,
                   child: Row(
                     children: <Widget>[
-                      Text( _selectedDate == null ? 'Nenhuma data selecionada!'
-                      : DateFormat('d/m/y').format( _selectedDate )),
+                      Expanded( // Expande e empurra o botão Selecionar Data para a direita
+                        child: Text(
+                        _selectedDate == null 
+                        ? 'Nenhuma data selecionada!'
+                        : 'Data Selecionada: ${DateFormat('dd/MM /y').format(_selectedDate)}'
+                        ),
+                      ),
                       FlatButton(
                         textColor: Theme.of(context).primaryColor,
                         child: Text(

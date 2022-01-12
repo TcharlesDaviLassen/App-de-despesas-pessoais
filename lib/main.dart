@@ -60,26 +60,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction>_transactions = [ //Notifica o App a pegar a lista de Transaction para não gerar um erro na aplicação
-    Transaction(
-      id: 't0',
-      title: 'Novo',
-      value: 450.9 ,
-      date: DateTime.now()
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de Corrida',
-      value: 310.7,
-      date:DateTime.now().subtract(Duration(days: 3)),
-    ),
-    Transaction(
-      id: 't2', 
-      title: 'Conta de Luz', 
-      value: 211.30, 
-      date: DateTime.now().subtract(Duration(days: 4)),
-    ),
-  ];
+  final List<Transaction>_transactions = [ ];//Notifica o App a pegar a lista de Transaction para não gerar um erro na aplicação
+  
 
   List<Transaction> get _recentTransactions {
     
@@ -90,12 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime data) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: data,
     );
 
     setState(() {
@@ -103,6 +85,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     Navigator.of(context).pop(); // => componente que faz o MODAL de digítação fechar
+  }
+
+  _removeTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((tr) => tr.id == id);
+    });
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -134,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
            Chart(_recentTransactions), // Havia um Conteiner aqui fazendo os parâmetros do Grafico, agora esta sendo implementado 
-            TransactionList(_transactions),
+            TransactionList(_transactions, _removeTransaction),
           ],
         ),
       ),

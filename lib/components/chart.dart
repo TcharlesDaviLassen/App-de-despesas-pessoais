@@ -13,7 +13,7 @@ class Chart extends StatelessWidget {
   ); // Pra pegar essas transaç~oes e passar para o => final List<Transaction> recentTransaction;
 
   List<Map<String, Object>> get groupedTransactions { // Dentro desse MAP tem dois valores que são String, Object
-    return List.generate(7, (index) { //Pega os ultimos 7 dias e o gerenciador é o index 
+    return List.generate(7, (index) { //Pega e cria as barras e os ultimos 7 dias e o gerenciador é o index 
       final weekDay = DateTime.now().subtract(
         Duration(days: index), // Cada vez que executar o generate vai  
       );
@@ -52,8 +52,9 @@ class Chart extends StatelessWidget {
       elevation: 6,
       margin: EdgeInsets.all(20),
       
+      //Caixa do Gráfico
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10), // Cria uma margem na caixa do padding
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           // ROW engloba todos os componentes como linha
@@ -63,10 +64,10 @@ class Chart extends StatelessWidget {
              child: ChartBar(
                 label: tr['day'],
                 value: tr['value'],
-                /*  Aqui como se trata de um valor Object 
+                /*  Aqui como se trata de um valor Object  
                 colocamos as double 
                 */
-                porcentagem: (tr['value'] as double) / _weekTotalValue,
+                porcentagem: _weekTotalValue == 0 ? 0 : (tr['value'] as double) / _weekTotalValue,
               ),
             );
            //Text('${tr['day']} : ${tr['value']}'); //Retornar um WIDGET já que o children recebe uma lista de componente => WIDGET
